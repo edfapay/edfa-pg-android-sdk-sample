@@ -15,6 +15,3 @@ dependencyResolutionManagement {
 }
 rootProject.name = "ExpressPayCardSample"
 include ':app'
-//include ':expresspay-sdk'
-//project(':expresspay-sdk').projectDir = new File(settingsDir, '../expresspay-sdk')
-
