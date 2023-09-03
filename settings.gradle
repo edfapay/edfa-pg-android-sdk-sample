@@ -13,5 +13,5 @@ dependencyResolutionManagement {
         mavenCentral()
     }
 }
-rootProject.name = "ExpressPayCardSample"
+rootProject.name = "EdfaPgCardSample"
 include ':app'

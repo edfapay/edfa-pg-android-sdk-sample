@@ -13,22 +13,22 @@
         android:label="@string/app_name"
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
-        android:theme="@style/Theme.ExpressPayCardSample"
+        android:theme="@style/Theme.EdfaPgAndroidSDK"
         tools:targetApi="31">
 
-        <!-- Expresspay SDK -->
+        <!-- Edfa Payment Gateway SDK -->
 <!--        <meta-data-->
-<!--            android:name="com.expresspay.sdk.CLIENT_KEY"-->
+<!--            android:name="com.edfapaygw.sdk.CLIENT_KEY"-->
 <!--            android:value="b5abdab4-5c46-11ed-a7be-8e03e789c25f" />-->
 <!--        <meta-data-->
-<!--            android:name="com.expresspay.sdk.CLIENT_PASS"-->
+<!--            android:name="com.edfapaygw.sdk.CLIENT_PASS"-->
 <!--            android:value="cdb715a1b482b2af375785d70e8005cd" />-->
 <!--        <meta-data-->
-<!--            android:name="com.expresspay.sdk.PAYMENT_URL"-->
-<!--            android:value="https://api.expresspay.sa/post" />-->
+<!--            android:name="com.edfapaygw.sdk.PAYMENT_URL"-->
+<!--            android:value="https://api.edfapay.com/post" />-->
 
         <activity
-            android:name=".ui.ExpresspayMainAcitivty"
+            android:name=".ui.EdfaPgMainAcitivty"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -43,31 +43,31 @@
 
         <activity
             android:label="Sale"
-            android:name=".ui.ExpresspaySaleActivity"
+            android:name=".ui.EdfaPgSaleActivity"
             android:screenOrientation="portrait" />
         <activity
             android:label="Sale Recurring"
-            android:name=".ui.ExpresspayRecurringSaleActivity"
+            android:name=".ui.EdfaPgRecurringSaleActivity"
             android:screenOrientation="portrait" />
         <activity
             android:label="Capture"
-            android:name=".ui.ExpresspayCaptureActivity"
+            android:name=".ui.EdfaPgCaptureActivity"
             android:screenOrientation="portrait" />
         <activity
             android:label="Credit Void"
-            android:name=".ui.ExpresspayCreditvoidActivity"
+            android:name=".ui.EdfaPgCreditvoidActivity"
             android:screenOrientation="portrait" />
         <activity
             android:label="Get TXN Status"
-            android:name=".ui.ExpresspayGetTransStatusActivity"
+            android:name=".ui.EdfaPgGetTransStatusActivity"
             android:screenOrientation="portrait" />
         <activity
             android:label="Get TXN Details"
-            android:name=".ui.ExpresspayGetTransDetailsActivity"
+            android:name=".ui.EdfaPgGetTransDetailsActivity"
             android:screenOrientation="portrait" />
         <activity
             android:label="3D Secure"
-            android:name=".ui.ExpresspayRedirect3dsActivity"
+            android:name=".ui.EdfaPgRedirect3dsActivity"
             android:screenOrientation="portrait" />
     </application>
 

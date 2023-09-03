@@ -1,8 +1,8 @@
 /*
- * Property of Expresspay (https://expresspay.sa).
+ * Property of Edfa Payment Gateway (https://edfapay.com).
  */
 
-package com.expresspay.sample.ui
+package com.edfapaygw.sample.ui
 
 import android.annotation.SuppressLint
 import android.app.Activity
@@ -17,10 +17,10 @@ import android.webkit.WebView
 import android.webkit.WebViewClient
 import androidx.annotation.RequiresApi
 import androidx.appcompat.app.AppCompatActivity
-import com.expresspay.sample.R
-import com.expresspay.sample.databinding.ActivityRedirect3dsBinding
+import com.edfapaygw.sample.R
+import com.edfapaygw.sample.databinding.ActivityRedirect3dsBinding
 
-class ExpresspayRedirect3dsActivity : AppCompatActivity(R.layout.activity_redirect_3ds) {
+class EdfaPgRedirect3dsActivity : AppCompatActivity(R.layout.activity_redirect_3ds) {
 
     private lateinit var binding: ActivityRedirect3dsBinding
 
@@ -124,7 +124,7 @@ class ExpresspayRedirect3dsActivity : AppCompatActivity(R.layout.activity_redire
             termUrl3ds: String
         ) {
             context.startActivityForResult(
-                Intent(context, ExpresspayRedirect3dsActivity::class.java).apply {
+                Intent(context, EdfaPgRedirect3dsActivity::class.java).apply {
                     putExtra(TERM_URL_KEY, termUrl)
                     putExtra(REDIRECT_URL_KEY, redirectUrl)
                     putExtra(REDIRECT_PARAMS_KEY, redirectParams)

@@ -1,8 +1,8 @@
 /*
- * Property of Expresspay (https://expresspay.sa).
+ * Property of EdfaPg (https://EdfaPg.sa).
  */
 
-package com.expresspay.sample.ui
+package com.edfapaygw.sample.ui
 
 import android.os.Bundle
 import android.view.View
@@ -11,35 +11,35 @@ import android.widget.AdapterView
 import android.widget.ArrayAdapter
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.get
-import com.expresspay.sample.R
-import com.expresspay.sample.app.ExpresspayTransactionStorage
-import com.expresspay.sample.app.preattyPrint
-import com.expresspay.sample.databinding.ActivityRecurringSaleBinding
-import com.expresspay.sdk.core.ExpresspaySdk
-import com.expresspay.sdk.model.request.options.ExpresspayRecurringOptions
-import com.expresspay.sdk.model.request.order.ExpresspayOrder
-import com.expresspay.sdk.model.response.base.error.ExpresspayError
-import com.expresspay.sdk.model.response.sale.ExpresspaySaleCallback
-import com.expresspay.sdk.model.response.sale.ExpresspaySaleResponse
-import com.expresspay.sdk.model.response.sale.ExpresspaySaleResult
+import com.edfapaygw.sample.R
+import com.edfapaygw.sample.app.EdfaPgTransactionStorage
+import com.edfapaygw.sample.app.preattyPrint
+import com.edfapaygw.sample.databinding.ActivityRecurringSaleBinding
+import com.edfapaygw.sdk.core.EdfaPgSdk
+import com.edfapaygw.sdk.model.request.options.EdfaPgRecurringOptions
+import com.edfapaygw.sdk.model.request.order.EdfaPgOrder
+import com.edfapaygw.sdk.model.response.base.error.EdfaPgError
+import com.edfapaygw.sdk.model.response.sale.EdfaPgSaleCallback
+import com.edfapaygw.sdk.model.response.sale.EdfaPgSaleResponse
+import com.edfapaygw.sdk.model.response.sale.EdfaPgSaleResult
 import io.kimo.lib.faker.Faker
 import java.text.DecimalFormat
 import java.util.*
 
-class ExpresspayRecurringSaleActivity : AppCompatActivity(R.layout.activity_recurring_sale) {
+class EdfaPgRecurringSaleActivity : AppCompatActivity(R.layout.activity_recurring_sale) {
 
     private lateinit var binding: ActivityRecurringSaleBinding
-    private lateinit var expresspayTransactionStorage: ExpresspayTransactionStorage
+    private lateinit var edfaPgTransactionStorage: EdfaPgTransactionStorage
 
-    private var selectedTransaction: ExpresspayTransactionStorage.Transaction? = null
-    private var transactions: List<ExpresspayTransactionStorage.Transaction>? = null
+    private var selectedTransaction: EdfaPgTransactionStorage.Transaction? = null
+    private var transactions: List<EdfaPgTransactionStorage.Transaction>? = null
 
     private val random = Random()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
-        expresspayTransactionStorage = ExpresspayTransactionStorage(this)
+        edfaPgTransactionStorage = EdfaPgTransactionStorage(this)
         binding = ActivityRecurringSaleBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
@@ -48,11 +48,11 @@ class ExpresspayRecurringSaleActivity : AppCompatActivity(R.layout.activity_recu
 
     private fun configureView() {
         binding.btnLoadRecurringSale.setOnClickListener {
-            transactions = expresspayTransactionStorage.getRecurringSaleTransactions()
+            transactions = edfaPgTransactionStorage.getRecurringSaleTransactions()
             invalidateSpinner()
         }
         binding.btnLoadAll.setOnClickListener {
-            transactions = expresspayTransactionStorage.getAllTransactions()
+            transactions = edfaPgTransactionStorage.getAllTransactions()
             invalidateSpinner()
         }
         binding.btnRandomize.setOnClickListener {
@@ -79,7 +79,7 @@ class ExpresspayRecurringSaleActivity : AppCompatActivity(R.layout.activity_recu
                 }
 
             adapter = object : ArrayAdapter<String>(
-                this@ExpresspayRecurringSaleActivity,
+                this@EdfaPgRecurringSaleActivity,
                 android.R.layout.simple_spinner_dropdown_item,
                 prettyTransactions
             ) {
@@ -158,47 +158,47 @@ class ExpresspayRecurringSaleActivity : AppCompatActivity(R.layout.activity_recu
                 0.0
             }
 
-            val order = ExpresspayOrder(
+            val order = EdfaPgOrder(
                 id = binding.etxtOrderId.text.toString(),
                 amount = amount,
                 description = binding.etxtOrderDescription.text.toString()
             )
 
-            val recurringOptions = ExpresspayRecurringOptions(
+            val recurringOptions = EdfaPgRecurringOptions(
                 firstTransactionId = binding.etxtRecurringFirstTransId.text.toString(),
                 token = binding.etxtRecurringToken.text.toString()
             )
 
-            val transaction = ExpresspayTransactionStorage.Transaction(
+            val transaction = EdfaPgTransactionStorage.Transaction(
                 payerEmail = selectedTransaction.payerEmail,
                 cardNumber = selectedTransaction.cardNumber
             )
 
             onRequestStart()
-            ExpresspaySdk.Adapter.RECURRING_SALE.execute(
+            EdfaPgSdk.Adapter.RECURRING_SALE.execute(
                 order = order,
                 options = recurringOptions,
                 payerEmail = selectedTransaction.payerEmail,
                 cardNumber = selectedTransaction.cardNumber,
                 auth = isAuth,
-                callback = object : ExpresspaySaleCallback {
-                    override fun onResponse(response: ExpresspaySaleResponse) {
+                callback = object : EdfaPgSaleCallback {
+                    override fun onResponse(response: EdfaPgSaleResponse) {
                         super.onResponse(response)
                         onRequestFinish()
                         binding.txtResponse.text = response.preattyPrint()
                     }
 
-                    override fun onResult(result: ExpresspaySaleResult) {
+                    override fun onResult(result: EdfaPgSaleResult) {
                         transaction.fill(result.result)
                         transaction.isAuth = isAuth
-                        if (result is ExpresspaySaleResult.Recurring) {
+                        if (result is EdfaPgSaleResult.Recurring) {
                             transaction.recurringToken = result.result.recurringToken
                         }
 
-                        expresspayTransactionStorage.addTransaction(transaction)
+                        edfaPgTransactionStorage.addTransaction(transaction)
                     }
 
-                    override fun onError(error: ExpresspayError) = Unit
+                    override fun onError(error: EdfaPgError) = Unit
 
                     override fun onFailure(throwable: Throwable) {
                         super.onFailure(throwable)

@@ -1,25 +1,23 @@
 /*
- * Property of Expresspay (https://expresspay.sa).
+ * Property of Edfa Payment Gateway (https://edfapay.com).
  */
 
-package com.expresspay.sample.app
+package com.edfapaygw.sample.app
 
 import android.content.Context
 import androidx.core.content.edit
-import com.expresspay.sdk.model.api.ExpresspayAction
-import com.expresspay.sdk.model.api.ExpresspayResult
-import com.expresspay.sdk.model.api.ExpresspayStatus
-import com.expresspay.sdk.model.response.base.result.IExpresspayResult
+import com.edfapaygw.sdk.model.api.*
+import com.edfapaygw.sdk.model.response.base.result.IEdfaPgResult
 import com.google.gson.Gson
 import java.util.*
 
-internal class ExpresspayTransactionStorage(context: Context) {
+internal class EdfaPgTransactionStorage(context: Context) {
 
     companion object {
-        private const val EXPRESSPAY_TRANSACTION_STORAGE = "EXPRESSPAY_TRANSACTION_STORAGE"
+        private const val EDFA_PG_TRANSACTION_STORAGE = "EDFA_PG_TRANSACTION_STORAGE"
     }
 
-    private val storage = context.getSharedPreferences(EXPRESSPAY_TRANSACTION_STORAGE, Context.MODE_PRIVATE)
+    private val storage = context.getSharedPreferences(EDFA_PG_TRANSACTION_STORAGE, Context.MODE_PRIVATE)
     private val gson = Gson()
 
     fun addTransaction(transaction: Transaction) {
@@ -36,15 +34,15 @@ internal class ExpresspayTransactionStorage(context: Context) {
     }
 
     fun getRecurringSaleTransactions() = getAllTransactions().filter {
-        it.action == ExpresspayAction.SALE && it.recurringToken.isNotEmpty()
+        it.action == EdfaPgAction.SALE && it.recurringToken.isNotEmpty()
     }
 
     fun getCaptureTransactions() = getAllTransactions().filter {
-        it.action == ExpresspayAction.SALE && it.isAuth
+        it.action == EdfaPgAction.SALE && it.isAuth
     }
 
     fun getCreditvoidTransactions() = getAllTransactions().filter {
-        it.action == ExpresspayAction.SALE || it.action == ExpresspayAction.CAPTURE || it.isAuth
+        it.action == EdfaPgAction.SALE || it.action == EdfaPgAction.CAPTURE || it.isAuth
     }
 
     fun clearTransactions() = storage.edit {
@@ -56,14 +54,14 @@ internal class ExpresspayTransactionStorage(context: Context) {
         val cardNumber: String,
     ) {
         var id: String = ""
-        var action: ExpresspayAction? = null
-        var result: ExpresspayResult? = null
-        var status: ExpresspayStatus? = null
+        var action: EdfaPgAction? = null
+        var result: EdfaPgResult? = null
+        var status: EdfaPgStatus? = null
 
         var recurringToken: String = ""
         var isAuth: Boolean = false
 
-        fun fill(result: IExpresspayResult) {
+        fun fill(result: IEdfaPgResult) {
             id = result.transactionId
             action = result.action
             this.result = result.result

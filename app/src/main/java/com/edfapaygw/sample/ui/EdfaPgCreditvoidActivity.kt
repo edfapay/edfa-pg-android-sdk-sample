@@ -1,8 +1,8 @@
 /*
- * Property of Expresspay (https://expresspay.sa).
+ * Property of Edfa Payment Gateway (https://edfapay.com).
  */
 
-package com.expresspay.sample.ui
+package com.edfapaygw.sample.ui
 
 import android.os.Bundle
 import android.view.View
@@ -11,41 +11,48 @@ import android.widget.AdapterView
 import android.widget.ArrayAdapter
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.get
-import com.expresspay.sample.R
-import com.expresspay.sample.app.ExpresspayTransactionStorage
-import com.expresspay.sample.app.preattyPrint
-import com.expresspay.sample.databinding.ActivityGetTransStatusBinding
-import com.expresspay.sdk.core.ExpresspaySdk
-import com.expresspay.sdk.model.response.base.error.ExpresspayError
-import com.expresspay.sdk.model.response.gettransactionstatus.ExpresspayGetTransactionStatusCallback
-import com.expresspay.sdk.model.response.gettransactionstatus.ExpresspayGetTransactionStatusResponse
-import com.expresspay.sdk.model.response.gettransactionstatus.ExpresspayGetTransactionStatusResult
+import com.edfapaygw.sample.R
+import com.edfapaygw.sample.app.EdfaPgTransactionStorage
+import com.edfapaygw.sample.app.preattyPrint
+import com.edfapaygw.sample.databinding.ActivityCreditvoidBinding
+import com.edfapaygw.sdk.core.EdfaPgSdk
+import com.edfapaygw.sdk.model.response.base.error.EdfaPgError
+import com.edfapaygw.sdk.model.response.creditvoid.EdfaPgCreditvoidCallback
+import com.edfapaygw.sdk.model.response.creditvoid.EdfaPgCreditvoidResponse
+import com.edfapaygw.sdk.model.response.creditvoid.EdfaPgCreditvoidResult
 import java.util.*
 
-class ExpresspayGetTransStatusActivity : AppCompatActivity(R.layout.activity_get_trans_status) {
+class EdfaPgCreditvoidActivity : AppCompatActivity(R.layout.activity_creditvoid) {
 
-    private lateinit var binding: ActivityGetTransStatusBinding
-    private lateinit var expresspayTransactionStorage: ExpresspayTransactionStorage
+    private lateinit var binding: ActivityCreditvoidBinding
+    private lateinit var edfaPgTransactionStorage: EdfaPgTransactionStorage
 
-    private var selectedTransaction: ExpresspayTransactionStorage.Transaction? = null
-    private var transactions: List<ExpresspayTransactionStorage.Transaction>? = null
+    private var selectedTransaction: EdfaPgTransactionStorage.Transaction? = null
+    private var transactions: List<EdfaPgTransactionStorage.Transaction>? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
-        expresspayTransactionStorage = ExpresspayTransactionStorage(this)
-        binding = ActivityGetTransStatusBinding.inflate(layoutInflater)
+        edfaPgTransactionStorage = EdfaPgTransactionStorage(this)
+        binding = ActivityCreditvoidBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
         configureView()
     }
 
     private fun configureView() {
-        binding.btnGetTransStatus.setOnClickListener {
+        binding.btnLoadCreditvoid.setOnClickListener {
+            transactions = edfaPgTransactionStorage.getCreditvoidTransactions()
+            invalidateSpinner()
+        }
+        binding.btnLoadAll.setOnClickListener {
+            transactions = edfaPgTransactionStorage.getAllTransactions()
+            invalidateSpinner()
+        }
+        binding.btnCreditvoid.setOnClickListener {
             executeRequest()
         }
 
-        transactions = expresspayTransactionStorage.getAllTransactions()
         invalidateSpinner()
     }
 
@@ -60,7 +67,7 @@ class ExpresspayGetTransStatusActivity : AppCompatActivity(R.layout.activity_get
                 }
 
             adapter = object : ArrayAdapter<String>(
-                this@ExpresspayGetTransStatusActivity,
+                this@EdfaPgCreditvoidActivity,
                 android.R.layout.simple_spinner_dropdown_item,
                 prettyTransactions
             ) {
@@ -106,7 +113,7 @@ class ExpresspayGetTransStatusActivity : AppCompatActivity(R.layout.activity_get
 
     private fun invalidateSelectedTransaction() {
         binding.txtSelectedTransaction.text = selectedTransaction?.preattyPrint()
-        binding.btnGetTransStatus.isEnabled = selectedTransaction != null
+        binding.btnCreditvoid.isEnabled = selectedTransaction != null
     }
 
     private fun onRequestStart() {
@@ -120,21 +127,37 @@ class ExpresspayGetTransStatusActivity : AppCompatActivity(R.layout.activity_get
 
     private fun executeRequest() {
         selectedTransaction?.let { selectedTransaction ->
+            val amount = try {
+                binding.etxtAmount.text.toString().toDouble()
+            } catch (e: Exception) {
+                0.00
+            }
+
+            val transaction = EdfaPgTransactionStorage.Transaction(
+                payerEmail = selectedTransaction.payerEmail,
+                cardNumber = selectedTransaction.cardNumber
+            )
+
             onRequestStart()
-            ExpresspaySdk.Adapter.GET_TRANSACTION_STATUS.execute(
+            EdfaPgSdk.Adapter.CREDITVOID.execute(
                 transactionId = selectedTransaction.id,
                 payerEmail = selectedTransaction.payerEmail,
                 cardNumber = selectedTransaction.cardNumber,
-                callback = object : ExpresspayGetTransactionStatusCallback {
-                    override fun onResponse(response: ExpresspayGetTransactionStatusResponse) {
+                amount = amount,
+                callback = object : EdfaPgCreditvoidCallback {
+                    override fun onResponse(response: EdfaPgCreditvoidResponse) {
                         super.onResponse(response)
                         onRequestFinish()
                         binding.txtResponse.text = response.preattyPrint()
                     }
 
-                    override fun onResult(result: ExpresspayGetTransactionStatusResult) = Unit
+                    override fun onResult(result: EdfaPgCreditvoidResult) {
+                        transaction.fill(result.result)
 
-                    override fun onError(error: ExpresspayError) = Unit
+                        edfaPgTransactionStorage.addTransaction(transaction)
+                    }
+
+                    override fun onError(error: EdfaPgError) = Unit
 
                     override fun onFailure(throwable: Throwable) {
                         super.onFailure(throwable)

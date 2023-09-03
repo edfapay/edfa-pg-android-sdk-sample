@@ -1,20 +1,20 @@
 /*
- * Property of Expresspay (https://expresspay.sa).
+ * Property of Edfa Payment Gateway (https://edfapay.com).
  */
 
-package com.expresspay.sample.ui
+package com.edfapaygw.sample.ui
 
 import android.content.Intent
 import android.os.Bundle
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
-import com.expresspay.sample.databinding.ActivityMainBinding
-import com.expresspay.sdk.model.request.order.*
-import com.expresspay.sdk.model.request.payer.*
-import com.expresspay.sdk.views.expresscardpay.*
+import com.edfapaygw.sample.databinding.ActivityMainBinding
+import com.edfapaygw.sdk.model.request.order.*
+import com.edfapaygw.sdk.model.request.payer.*
+import com.edfapaygw.sdk.views.edfacardpay.*
 import java.util.UUID
 
-class ExpresspayMainAcitivty : AppCompatActivity() {
+class EdfaPgMainAcitivty : AppCompatActivity() {
 
     private lateinit var binding: ActivityMainBinding
 
@@ -29,22 +29,22 @@ class ExpresspayMainAcitivty : AppCompatActivity() {
 
     private fun configureView() {
         binding.btnSale.setOnClickListener {
-            startActivity(Intent(this, ExpresspaySaleActivity::class.java))
+            startActivity(Intent(this, EdfaPgSaleActivity::class.java))
         }
         binding.btnRecurringSale.setOnClickListener {
-            startActivity(Intent(this, ExpresspayRecurringSaleActivity::class.java))
+            startActivity(Intent(this, EdfaPgRecurringSaleActivity::class.java))
         }
         binding.btnCapture.setOnClickListener {
-            startActivity(Intent(this, ExpresspayCaptureActivity::class.java))
+            startActivity(Intent(this, EdfaPgCaptureActivity::class.java))
         }
         binding.btnCreditVoid.setOnClickListener {
-            startActivity(Intent(this, ExpresspayCreditvoidActivity::class.java))
+            startActivity(Intent(this, EdfaPgCreditvoidActivity::class.java))
         }
         binding.btnGetTransStatus.setOnClickListener {
-            startActivity(Intent(this, ExpresspayGetTransStatusActivity::class.java))
+            startActivity(Intent(this, EdfaPgGetTransStatusActivity::class.java))
         }
         binding.btnGetTransDetails.setOnClickListener {
-            startActivity(Intent(this, ExpresspayGetTransDetailsActivity::class.java))
+            startActivity(Intent(this, EdfaPgGetTransDetailsActivity::class.java))
         }
 
         binding.btnSaleWithCardUi.setOnClickListener {
@@ -54,21 +54,21 @@ class ExpresspayMainAcitivty : AppCompatActivity() {
 
     fun payWithCard(){
 
-        val order = ExpresspaySaleOrder(
+        val order = EdfaPgSaleOrder(
             id = UUID.randomUUID().toString(),
             amount = 0.10,
             currency = "SAR",
             description = "Test Order"
         )
 
-        val payer = ExpresspayPayer(
+        val payer = EdfaPgPayer(
             "Zohaib","Kambrani",
             "Riyadh","SA", "Riyadh","123123",
             "a2zzuhaib@gmail.com","966500409598",
             "171.100.100.123"
         )
 
-        val expressCardPay = ExpressCardPay()
+        val edfaCardPay = EdfaCardPay()
             .setOrder(order)
             .setPayer(payer)
             .onTransactionFailure { res, data ->
@@ -82,7 +82,7 @@ class ExpresspayMainAcitivty : AppCompatActivity() {
         /*
         * Precise way to start card payment (ready to use)
         * */
-        expressCardPay.initialize(
+        edfaCardPay.initialize(
             this,
             onError = {
 
@@ -96,7 +96,7 @@ class ExpresspayMainAcitivty : AppCompatActivity() {
         /*
         * To get intent of card screen activity to present in your own choice (ready to use)
         * */
-//        startActivity(expressCardPay.intent(
+//        startActivity(edfaCardPay.intent(
 //            this,
 //            onError = {
 //
@@ -110,7 +110,7 @@ class ExpresspayMainAcitivty : AppCompatActivity() {
         /*
         * To get fragment of card screen to present in your own choice (ready to use)
         * */
-//        expressCardPay.fragment(
+//        edfaCardPay.fragment(
 //            onError = {
 //
 //            },

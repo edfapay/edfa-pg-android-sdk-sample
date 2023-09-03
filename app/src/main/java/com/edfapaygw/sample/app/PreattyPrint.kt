@@ -1,8 +1,8 @@
 /*
- * Property of Expresspay (https://expresspay.sa).
+ * Property of Edfa Payment Gateway (https://edfapay.com).
  */
 
-package com.expresspay.sample.app
+package com.edfapaygw.sample.app
 
 import java.lang.reflect.Modifier
 import java.math.BigDecimal

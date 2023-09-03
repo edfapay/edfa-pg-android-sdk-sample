@@ -1,4 +1,4 @@
-package com.expresspay.sample
+package com.edfapaygw.sample
 
 import org.junit.Test
 
