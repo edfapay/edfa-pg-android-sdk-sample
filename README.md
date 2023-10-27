@@ -1,4 +1,4 @@
-![](https://jitpack.io/v/edfapay/edfapay-android-sdk.svg) | [View SDK Wiki](https://github.com/EdfaPgSa/edfapay-android-sdk/wiki) | [Report new issue](https://github.com/EdfaPgSa/edfapay-android-sdk/issues/new)
+![](https://jitpack.io/v/edfapay/edfapay-android-sdk.svg) | [View SDK Wiki](https://github.com/edfapay/edfa-pg-android-sdk/wiki) | [Report new issue](https://github.com/edfapay/edfa-pg-android-sdk/issues/new)
 
 # EdfaPg Android SDK
 
@@ -21,24 +21,10 @@ The main aspects of the EdfaPg Android SDK:
 - Minimum SDK 16+
 - Sample Application
 
-To properly set up the SDK, read [Wiki](https://github.com/EdfaPgSa/edfapay-android-sdk/wiki) first.
-To get used to the SDK, download a [sample app](https://github.com/EdfaPgSa/edfapay-android-sdk/tree/master/sample).
+To properly set up the SDK, read [Wiki](https://github.com/edfapay/edfa-pg-android-sdk/wiki) first.
+To get used to the SDK, download a [sample app](https://github.com/edfapay/edfa-pg-android-sdk/tree/master/sample).
 
 ## Setup
-
-Add to the root build.gradle:
-
-```groovy
-allprojects {
-    repositories {
-        ...
-        maven {
-            url "https://jitpack.io"
-            credentials { username "jp_cppv4mkessjq12i4kqihrnjqvo" }
-        }
-    }
- }
-```
 
 Add to the package build.gradle:
 
@@ -52,8 +38,8 @@ Latest version is: ![Release](https://badgen.net/badge/jitpack/1.0.4/green)
 
 
 ## Quick Payment Implementation
-[**Card Payment**](https://github.com/EdfaPgSa/edfapay-android-sdk/wiki/Edfa-Quick-Card-Payment)
-Start the card payment with one click, easy and short line of codes. It will help the developer to easily implement the payment using card in thier application. click the [link](https://github.com/EdfaPgSa/edfapay-android-sdk/wiki/Edfa-Quick-Card-Payment) for easy steps to start payments.
+[**Card Payment**](https://github.com/edfapay/edfa-pg-android-sdk/wiki/Edfa-Quick-Card-Payment)
+Start the card payment with one click, easy and short line of codes. It will help the developer to easily implement the payment using card in thier application. click the [link](https://github.com/edfapay/edfa-pg-android-sdk/wiki/Edfa-Quick-Card-Payment) for easy steps to start payments.
 
 
 ## Sample
@@ -68,7 +54,7 @@ Start the card payment with one click, easy and short line of codes. It will hel
 
 ## Getting help
 
-To report a specific issue or feature request, open a [new issue](https://github.com/EdfaPgSa/edfapay-android-sdk/issues/new).
+To report a specific issue or feature request, open a [new issue](https://github.com/edfapay/edfa-pg-android-sdk/issues/new).
 
 Or write a direct letter to the [support@edfapay.com](mailto:support@edfapay.com).
 
