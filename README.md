@@ -1,4 +1,4 @@
-![](https://jitpack.io/v/edfapay/edfapay-android-sdk.svg) | [View SDK Wiki](https://github.com/edfapay/edfa-pg-android-sdk/wiki) | [Report new issue](https://github.com/edfapay/edfa-pg-android-sdk/issues/new)
+![](https://badgen.net/badge/jitpack/1.0.4/green) | [View SDK Wiki](https://github.com/edfapay/edfa-pg-android-sdk/wiki) | [Report new issue](https://github.com/edfapay/edfa-pg-android-sdk/issues/new)
 
 # EdfaPg Android SDK
 
