@@ -22,7 +22,7 @@ The main aspects of the EdfaPg Android SDK:
 - Sample Application
 
 To properly set up the SDK, read [Wiki](https://github.com/edfapay/edfa-pg-android-sdk/wiki) first.
-To get used to the SDK, download a [sample app](https://github.com/edfapay/edfa-pg-android-sdk/tree/master/sample).
+To get used to the SDK, download a [sample app](https://github.com/edfapay/edfa-pg-android-sdk-sample).
 
 ## Setup
 
