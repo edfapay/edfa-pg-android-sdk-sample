@@ -1,4 +1,4 @@
-![](https://badgen.net/badge/jitpack/1.0.4/green) | [View SDK Wiki](https://github.com/edfapay/edfa-pg-android-sdk/wiki) | [Report new issue](https://github.com/edfapay/edfa-pg-android-sdk/issues/new)
+[![](https://jitpack.io/v/edfapay/edfa-pg-android-sdk.svg)](https://jitpack.io/#edfapay/edfa-pg-android-sdk) | [View SDK Wiki](https://github.com/edfapay/edfa-pg-android-sdk/wiki) | [Report new issue](https://github.com/edfapay/edfa-pg-android-sdk/issues/new)
 
 # EdfaPg Android SDK
 
@@ -10,12 +10,12 @@ EdfaPg is a white-label payment software provider. Thanks to our 15+ years of ex
   </a>
 </p>
 
-EdfaPg Android SDK was developed and designed with one purpose: to help the Android developers easily integrate the EdfaPg API Payment Platform for a specific merchant. 
+EdfaPg Android SDK was developed and designed with one purpose: to help the Android developers easily integrate the EdfaPg API Payment Platform for a specific merchant.
 
 The main aspects of the EdfaPg Android SDK:
 
 - [Kotlin](https://developer.android.com/kotlin) is the main language
-- [Retrofit](http://square.github.io/retrofit/) is the API machine 
+- [Retrofit](http://square.github.io/retrofit/) is the API machine
 - [KDoc](https://kotlinlang.org/docs/reference/kotlin-doc.html) code coverage
 - API debug [logging](https://github.com/square/okhttp/tree/master/okhttp-logging-interceptor)
 - Minimum SDK 16+
@@ -26,15 +26,37 @@ To get used to the SDK, download a [sample app](https://github.com/edfapay/edfa-
 
 ## Setup
 
-Add to the package build.gradle:
-
+Add it in your project settings.gradle:
 ```groovy
-dependencies {
-    implementation 'com.github.EdfaPgSa:edfapay-android-sdk-code:1.0.4'
+dependencyResolutionManagement {
+    repositoriesMode.set(RepositoriesMode.FAIL_ON_PROJECT_REPOS)
+    repositories {
+        mavenCentral()
+        maven { url 'https://jitpack.io' }  // Add this Line
+    }
 }
 ```
 
-Latest version is: ![Release](https://badgen.net/badge/jitpack/1.0.4/green)
+Or
+
+To your project build.gradle:
+```groovy
+repositories {
+    mavenCentral()
+    maven { url 'https://jitpack.io' } // Add this Line
+}
+```
+
+Then
+
+Add dependency to your project module level build.gradle:
+```groovy
+dependencies {
+    implementation 'com.github.edfapay:edfa-pg-android-sdk:<latest version>' // Add this Line with latest version
+}
+```
+
+Latest version is: [![](https://jitpack.io/v/edfapay/edfa-pg-android-sdk.svg)](https://jitpack.io/#edfapay/edfa-pg-android-sdk)
 
 
 ## Quick Payment Implementation
@@ -60,13 +82,13 @@ Or write a direct letter to the [support@edfapay.com](mailto:support@edfapay.com
 
 ## License
 
-MIT License. See the [LICENSE](https://github.com/edfapay/edfa-pg-android-sdk-sample/blob/main/LICENSE) file for more details.
+MIT License. See the [LICENSE](https://github.com/edfapay/edfa-pg-android-sdk/blob/main/LICENSE) file for more details.
 
 ## Contacts
 
 Website: https://edfapay.com  
 Phone: [+966 920033633](tel:+966920033633)  
 Email: [support@edfapay.com](mailto:support@edfapay.com)  
-Address: EdfaPg, Olaya Street, Riyadh, Saudi Arabia 
+Address: EdfaPg, Olaya Street, Riyadh, Saudi Arabia
 
 © 2022 - 2023 EdfaPg. All rights reserved.
