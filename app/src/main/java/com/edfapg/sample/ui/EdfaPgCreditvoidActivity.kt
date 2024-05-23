@@ -21,7 +21,7 @@ import com.edfapg.sdk.model.response.creditvoid.EdfaPgCreditvoidCallback
 import com.edfapg.sdk.model.response.creditvoid.EdfaPgCreditvoidResponse
 import com.edfapg.sdk.model.response.creditvoid.EdfaPgCreditvoidResult
 
-class EdfaPgCreditvoidActivity : AppCompatActivity(R.layout.activity_creditvoid) {
+class EdfaPgCreditvoidActivity : BaseActivity(R.layout.activity_creditvoid) {
 
     private lateinit var binding: ActivityCreditvoidBinding
     private lateinit var edfapayTransactionStorage: EdfaPgTransactionStorage
