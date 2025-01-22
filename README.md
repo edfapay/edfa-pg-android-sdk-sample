@@ -17,7 +17,7 @@ easily integrate the EdfaPay API Payment Platform for a specific merchant.
 > ![Release](https://jitpack.io/v/edfapay/edfa-pg-android-sdk.svg)
 > ```groovy
 >  implementation 'com.github.edfapay:edfa-pg-android-sdk:$VERSION' //check jetpack.io for latest version
-
+>
 > You must add the `jitpack` repository support to the **Gradle** to access and download the native dependency. 
 >
 > Add below to the `./android/build.gradle` of your project
@@ -53,10 +53,7 @@ easily integrate the EdfaPay API Payment Platform for a specific merchant.
 > ```
 >
 > 
-> [!IMPORTANT]
 > ### Configuring the Proguard Rule
->
-> **Android**
 > 
 > If your project is obfuscated with proguard, please add the rule below to your android project **proguard-rules.pro**
 > 
