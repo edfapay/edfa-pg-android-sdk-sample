@@ -48,10 +48,22 @@
             android:text="GET_TRANS_DETAILS" />
 
         <Button
-            android:id="@+id/btn_sale_with_card_ui"
+            android:id="@+id/btn_sale_with_card_ui_1"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="SALE_WITH_CARD_UI" />
+            android:text="SALE_WITH_CARD_UI 1" />
+
+        <Button
+            android:id="@+id/btn_sale_with_card_ui_2"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="SALE_WITH_CARD_UI 2" />
+
+        <Button
+            android:id="@+id/btn_sale_with_card_ui_3"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="SALE_WITH_CARD_UI 3" />
 
     </LinearLayout>
 
