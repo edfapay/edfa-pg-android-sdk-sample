@@ -77,7 +77,7 @@ easily integrate the EdfaPay API Payment Platform for a specific merchant.
 >  
 >  `MERCHANT_PASSWORD`: Your Secret Merchant Password
 >  
->  `PAYMENT_URL`: Backend APIs URL
+>  `PAYMENT_URL`: Backend APIs URL//For Edfapay the URL is: https://api.edfapay.com/payment/post
 > 
 > ```kotlin
 >     EdfaPgSdk.init(
