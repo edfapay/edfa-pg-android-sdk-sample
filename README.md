@@ -1,4 +1,6 @@
 
+
+
 # EdfaPay Payment Gateway Android SDK
 
 EdfaPay is a white-label payment software provider. Thanks to our 15+ years of experience in the
@@ -14,13 +16,17 @@ easily integrate the EdfaPay API Payment Platform for a specific merchant.
 > ### Configure Repository
 > 
 > **Setup Android** 
-> ![Release](https://jitpack.io/v/edfapay/edfa-pg-android-sdk.svg)
+> Latest Version: ![Release](https://jitpack.io/v/edfapay/edfa-pg-android-sdk.svg)
+> 
+> Add the dependency to your project's `build.gradle` file:
 > ```groovy
->  implementation 'com.github.edfapay:edfa-pg-android-sdk:$VERSION' //check jetpack.io for latest version
->
-> You must add the `jitpack` repository support to the **Gradle** to access and download the native dependency. 
->
-> Add below to the `./android/build.gradle` of your project
+>dependencies {
+>       ...
+>       implementation 'com.github.edfapay:edfa-pg-android-sdk:$VERSION'
+>  }
+
+> To access and download the native dependency, ensure that the `jitpack` repository is configured.
+>	 Add to `app/build.gradle`:
 > 
 > ```groovy
 > allprojects {
@@ -36,7 +42,7 @@ easily integrate the EdfaPay API Payment Platform for a specific merchant.
 > ```
 > ----
 >
-> Or add below to the `./settings.gradle` of your project
+> Or add to `./settings.gradle`:
 > 
 > ```groovy
 > dependencyResolutionManagement {
@@ -55,7 +61,7 @@ easily integrate the EdfaPay API Payment Platform for a specific merchant.
 > 
 > ### Configuring the Proguard Rule
 > 
-> If your project is obfuscated with proguard, please add the rule below to your android project **proguard-rules.pro**
+> If your project is obfuscated with proguard, add the following rule to `proguard-rules.pro`:
 > 
 > ```
 > -keep class com.edfapg.sdk.** {
@@ -66,17 +72,20 @@ easily integrate the EdfaPay API Payment Platform for a specific merchant.
 ## Usage
 > [!IMPORTANT]
 > ### Initialize SDK
+>  
+>  `MERCHANT_KEY`: Your Secret Merchant Key
+>  
+>  `MERCHANT_PASSWORD`: Your Secret Merchant Password
+>  
+>  `PAYMENT_URL`: Backend APIs URL
 > 
 > ```kotlin
-> val edfaCardPay = EdfaCardPay()
-> edfaCardPay.initialize(  
->    this,  
->    onError = {  
->  
->   },  
->    onPresent = {  
->
->  })
+>     EdfaPgSdk.init(
+>         this,
+>         MERCHANT_KEY,
+>         MERCHANT_PASSWORD,
+>         PAYMENT_URL
+>     )
 > ```
 
 > [!TIP]
@@ -113,7 +122,9 @@ easily integrate the EdfaPay API Payment Platform for a specific merchant.
 > > ```
 > 
 > > **Payment with Card**
-> > ```dart
+> EdfaPay offers three design options: `EdfaPayDesignType.one`, `EdfaPayDesignType.two`, and 
+>  `EdfaPayDesignType.three`. Select the desired design and language (`EdfaPayLanguage.en` or ? `EdfaPayLanguage.ar`).
+> > ```kotlin
 > > import com.edfapg.sdk.toolbox.EdfaPayDesignType  
 > >import com.edfapg.sdk.toolbox.EdfaPayLanguage
 > >
@@ -125,42 +136,42 @@ easily integrate the EdfaPay API Payment Platform for a specific merchant.
 > >        .onTransactionSuccess((response){
 > >          print("onTransactionSuccess.response ===> ${response.toString()}");
 > >
-> >    }).onTransactionFailure((response){
-> >      print("onTransactionFailure.response ===> ${response.toString()}");
+> >    		}).onTransactionFailure((response){
+> >      		print("onTransactionFailure.response ===> ${response.toString()}");
 > >
-> >    }).onError((error){
-> >      print("onError.response ===> ${error.toString()}");
+> >    		}).onError((error){
+> >      		print("onError.response ===> ${error.toString()}");
 > >
-> >    }).initialize(context);
+> >    		}).initialize(this, onError = {}, onPresent = {})
 > > ```
 >
-> > **Pay With ApplePay - iOS Only**
-> > ```dart
-> >     EdfaApplePay()
-> >         .setOrder(order)
-> >         .setPayer(payer)
-> >         .setApplePayMerchantID(APPLEPAY_MERCHANT_ID)
-> >         .onAuthentication((response){
-> >       print("onAuthentication.response ===> ${response.toString()}");
-> > 
-> >     }).onTransactionSuccess((response){
-> >       print("onTransactionSuccess.response ===> ${response.toString()}");
-> > 
-> >     }).onTransactionFailure((response){
-> >       print("onTransactionFailure.response ===> ${response.toString()}");
-> > 
-> >     }).onError((error){
-> >       print("onError.response ===> ${error.toString()}");
-> > 
-> >     }).initialize(context);
-> > ```
->
+> **Payment with Card Details**
+> >  ```kotlin
+>> val card = EdfaPgCard(number = "5294069168715897", 
+>>                        expireMonth = 3, expireYear = 2026, cvv = "049")
+>> 
+>>  EdfaPayWithCardDetails(this)  
+>>    .setOrder(order)  
+>>    .setPayer(payer)  
+>>    .setCard(card)  
+>>    .onTransactionFailure { res, data ->  
+>>  			print("$res $data")  
+>>        		Toast.makeText(this, "Transaction Failure", Toast.LENGTH_LONG).show()  
+>>    		}.onTransactionSuccess { res, data ->  
+>>  			print("$res $data")  
+>>        		Toast.makeText(this, "Transaction Success", Toast.LENGTH_LONG).show()  
+>>    		} .initialize(  
+>>        		onError = {  
+>>  			Toast.makeText(this, "onError $it", Toast.LENGTH_LONG).show()  
+>>        	},  
+>>        		onPresent = {  
+>>  			} )
 > ### Addon's
 > > **Create [EdfaPgSaleOrder](https://github.com/edfapay/edfa-pg-android-sdk/blob/master/edfa-pg-sdk/src/main/java/com/edfapg/sdk/model/request/order/EdfaPgSaleOrder.kt) ` & ` [EdfaPgPayer](https://github.com/edfapay/edfa-pg-android-sdk/blob/master/edfa-pg-sdk/src/main/java/com/edfapg/sdk/model/request/payer/EdfaPgPayer.kt)
 > > 
 > > **Create `EdfaPgSaleOption` Model**
 > > ```dart
-> >     final saleOption = EdfaPgSaleOption(
+> >    val saleOption = EdfaPgSaleOption(
 > >         channelId = "channel-id-here", // channel-id if its enable for merchant
 > >         recurringInit = true // Make sure recurring is enabled for merchant and [true=if want to do recurring, false=if don't want do recurring]
 > >     )
@@ -176,15 +187,17 @@ easily integrate the EdfaPay API Payment Platform for a specific merchant.
 > >		)
 > > ```
 > > 
-> > **Sale Transaction** - Make sure to pass null to `saleOption:` and false to `isAuth:`
+> > **Sale Transaction**  
+> To process a sale transaction, pass `null` to `options` and `false` to `auth`. 
+> For `termUrl3ds`, use: https://pay.edfapay.com/
 > > ```dart
 > >   EdfaPgSdk.Adapter.SALE.execute(  
  > >   order = order,  
  > >   card = card,  
  > >   payer = payer,  
  > >   termUrl3ds = termUrl3ds,  
- > >   options = saleOptions,  
- > >   auth = isAuth,  
+ > >   options = null,  
+ > >   auth = false,  
  > >   callback = object : EdfaPgSaleCallback {  
  > >       override fun onResponse(response: EdfaPgSaleResponse) {  
  > >           super.onResponse(response)  
@@ -205,7 +218,7 @@ easily integrate the EdfaPay API Payment Platform for a specific merchant.
 > > ```
 >
 > > **Recurring Transaction**
-> > - Make sure to pass false to `isAuth:`
+> > - Make sure to pass false to `auth:`
 > > - Card Number should be passed the same used for the first `Sale` with `EdfaPgSaleOption.recurringInit==true`
 > > - `EdfaPgRecurringOptions.firstTransactionId:` should `transactionId` from first success `Sale` with `EdfaPgSaleOption.recurringInit==true`
 > > - `EdfaPgRecurringOptions.token:` Should be recurringToken from first success `Sale` with `EdfaPgSaleOption.recurringInit==true`
@@ -215,7 +228,7 @@ easily integrate the EdfaPay API Payment Platform for a specific merchant.
 > >    options = recurringOptions,  
 > >    payerEmail = selectedTransaction.payerEmail,  
 > >    cardNumber = selectedTransaction.cardNumber,  
-> >    auth = isAuth,  
+> >    auth = false,  
 > >    callback = object : EdfaPgSaleCallback {  
 > >        override fun onResponse(response: EdfaPgSaleResponse) {  
 > >            super.onResponse(response)  
@@ -237,10 +250,10 @@ easily integrate the EdfaPay API Payment Platform for a specific merchant.
 > > ```
 > 
 > > **Capture Transaction**
-> > - `transactionId:` should `transactionId` from success `Sale` with `isAuth:true`
-> > - Card Number should be passed the same used for the `Sale` with `isAuth:true`
-> > - `cardNumber:` should authorized by `Sale` with `isAuth:true`
-> > - `amount:` should be the same as `Sale` with `isAuth:true`
+> > - `transactionId:` You can take this `transactionId` from success `Sale` with `auth:true`
+> > - Card Number should be passed the same used for the `Sale` with `auth:true`
+> > - `cardNumber:` should authorized by `Sale` with `auth:true`
+> > - `amount:` should be the same as `Sale` with `auth:true`
 > > ```dart
 > >    EdfaPgSdk.Adapter.CAPTURE.execute(  
 > >    transactionId = selectedTransaction.id,  
@@ -269,10 +282,10 @@ easily integrate the EdfaPay API Payment Platform for a specific merchant.
 > > ```
 >
 > > **Credit Void Transaction**
-> > - `transactionId:` should `transactionId` from success `Sale` with `isAuth:true`
-> > - Card Number should be passed the same used for the `Sale` with `isAuth:true`
-> > - `cardNumber:` should authorized by `Sale` with `isAuth:true`
-> > - `amount:` should be the same as `Sale` with `isAuth:true`
+> > - `transactionId:` You can take this `transactionId` from success `Sale` with `auth:true`
+> > - Card Number should be passed the same used for the `Sale` with `auth:true`
+> > - `cardNumber:` should authorized by `Sale` with `auth:true`
+> > - `amount:` should be the same as `Sale` with `auth:true`
 > > ```dart
 > >    EdfaPgSdk.Adapter.CREDITVOID.execute(  
 > >    transactionId = selectedTransaction.id,  
@@ -300,10 +313,10 @@ easily integrate the EdfaPay API Payment Platform for a specific merchant.
 > > ```
 >
 > > **Transaction Detail**
-> > - `transactionId:` should be from the last transaction,
+> > - `transactionId:` You can take this `transactionId` from the last transaction,
 > > - `cardNumber:` should be passed the same used for the last transaction
 > > ```dart
-> >     EdfaPgSdk.Adapter.GET_TRANSACTION_DETAILS.execute(  
+> >    EdfaPgSdk.Adapter.GET_TRANSACTION_DETAILS.execute(  
 > >    transactionId = selectedTransaction.id,  
 > >    payerEmail = selectedTransaction.payerEmail,  
 > >    cardNumber = selectedTransaction.cardNumber,  
@@ -330,10 +343,10 @@ easily integrate the EdfaPay API Payment Platform for a specific merchant.
 > > ```
 >
 > > **Transaction Status**
-> > - `transactionId:` should be from the last transaction,
+> > - `transactionId:` You can take this `transactionId` from the last transaction,
 > > - `cardNumber:` should be passed the same used for the last transaction
 > > ```dart
-> >     EdfaPgSdk.Adapter.GET_TRANSACTION_STATUS.execute(  
+> >    EdfaPgSdk.Adapter.GET_TRANSACTION_STATUS.execute(  
 > >    transactionId = selectedTransaction.id,  
 > >    payerEmail = selectedTransaction.payerEmail,  
 > >    cardNumber = selectedTransaction.cardNumber,  
@@ -385,3 +398,4 @@ Email: [support@edfapay.sa](mailto:support@edfapay.sa)
 7637 Othman Bin Affan St., 2123 Al Ezdihar Dist., 12487 Riyadh, Riyadh, Saudi Arabia
 
 © 2022 - 2023 EdfaPay. All rights reserved.
+	
