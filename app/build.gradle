@@ -47,7 +47,9 @@ android {
 }
 
 dependencies {
-    implementation 'com.github.edfapay:edfa-pg-android-sdk:2.0.0'
+
+//    implementation 'com.github.edfapay:edfa-pg-android-sdk:2.0.5'
+    implementation project(path: ':edfapg_sdk')
 
     implementation 'androidx.appcompat:appcompat:1.6.1'
     implementation 'androidx.core:core-ktx:1.12.0'

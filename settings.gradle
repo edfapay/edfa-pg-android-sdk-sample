@@ -16,4 +16,5 @@ dependencyResolutionManagement {
 rootProject.name = "EdfaPgCardSample"
 include ':app'
 include(':edfapg_sdk')
-project(':edfapg_sdk').projectDir = new File("/Volumes/Storage/Projects/Edfapay/Android/edfpay-pg-android-sdk/edfa-pg-sdk")
+
+project(':edfapg_sdk').projectDir = new File("/Users/kashif/Desktop/AppRack/edfa-pg-android-sdk/edfa-pg-sdk")

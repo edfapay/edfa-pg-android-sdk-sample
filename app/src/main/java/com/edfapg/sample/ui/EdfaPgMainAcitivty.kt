@@ -81,7 +81,7 @@ class EdfaPgMainAcitivty : BaseActivity() {
 
 //        val card = EdfaPgCard("4458271329748293", 7, 2029, "331")
 //        val card = EdfaPgCard("5452057473989962", 3, 2026, "386")
-        val card = EdfaPgCard("5294151606897978", 3, 2026, "049")
+        val card = EdfaPgCard(number = "5294151606897978", expireMonth = 3, expireYear = 2026, cvv = "049")
         EdfaPayWithCardDetails(this)
             .setOrder(order)
             .setPayer(payer)
@@ -125,7 +125,7 @@ class EdfaPgMainAcitivty : BaseActivity() {
         val edfaCardPay = EdfaCardPay()
             .setOrder(order)
             .setPayer(payer)
-            .setDesignType(EdfaPayDesignType.one)
+            .setDesignType(designType)
             .setLanguage(EdfaPayLanguage.en)
             .onTransactionFailure { res, data ->
                 print("$res $data")
