@@ -19,13 +19,18 @@
 # If you keep the line number information, uncomment this to
 # hide the original source file name.
 #-renamesourcefileattribute SourceFile
--keep class com.edfapg.sdk.model.response.sale.** { *; }
-# Gson uses generic type information stored in a class file when working with fields.
--keepattributes Signature
 
-# Gson specific classes
--keep class com.google.gson.** { *; }
--keep class com.google.gson.reflect.** { *; }
+#-keep class com.edfapg.** {
+#  public protected private *;
+#}
+#
+##-keep class com.edfapg.sdk.model.response.sale.** { *; }
+## Gson uses generic type information stored in a class file when working with fields.
+#-keepattributes Signature
+#
+## Gson specific classes
+#-keep class com.google.gson.** { *; }
+#-keep class com.google.gson.reflect.** { *; }
 
 # Application classes that will be serialized/deserialized
--keep class com.edfapg.sdk.model.response.gettransactiondetails.** { *; }
+#-keep class com.edfapg.sdk.model.response.gettransactiondetails.** { *; }

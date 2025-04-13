@@ -23,6 +23,7 @@ android {
             debuggable false
             shrinkResources true //remove resources
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+            consumerProguardFiles 'consumer-rules.pro'
             signingConfig signingConfigs.debug
         }
 
@@ -31,6 +32,7 @@ android {
             debuggable true
             shrinkResources true //remove resources
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+            consumerProguardFiles 'consumer-rules.pro'
             signingConfig signingConfigs.debug
         }
     }
